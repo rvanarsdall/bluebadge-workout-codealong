@@ -2,6 +2,7 @@ require("dotenv").config();
 var express = require("express");
 var app = express();
 var test = require("./controllers/testcontroller");
+var authTest = require("./controllers/authtestcontroller");
 var sequelize = require("./db");
 var bodyParser = require("body-parser");
 
@@ -10,8 +11,7 @@ var user = require("./controllers/usercontroller");
 sequelize.sync();
 app.use(bodyParser.json());
 
-app.use(require('./middleware/header')) 
-
+app.use(require("./middleware/header"));
 
 // app.get('/', function(request, response){
 // response.send("Hello World")
@@ -23,10 +23,11 @@ app.use(require('./middleware/header'))
 // })
 
 app.use("/api/user", user);
+app.use("/test-controller", test);
 
+app.use(require("./middleware/validate-session"));
 
-app.use(require('./middleware/validate-session'))
-app.use('/test-controller', test)
+app.use("/authtest", authTest);
 
 app.listen(3000, function() {
   console.log("app is listening on 3000 and hello world");
