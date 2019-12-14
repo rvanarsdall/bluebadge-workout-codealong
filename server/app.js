@@ -23,9 +23,10 @@ app.use(require('./middleware/header'))
 // })
 
 app.use("/api/user", user);
-// app.use("/test-controller", test);
 
-app.use('/test', test)
+
+app.use(require('./middleware/validate-session'))
+app.use('/test-controller', test)
 
 app.listen(3000, function() {
   console.log("app is listening on 3000 and hello world");

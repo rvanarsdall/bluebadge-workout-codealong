@@ -22,6 +22,23 @@ if (myExample) {
 
 
 
+router.post("/", function(req,res){
+
+    Log.create(
+        {description: req.body.data.description,
+            definition: req.body.data.definition,
+            result: req.body.data.result,
+            userid: req.user.id
+        }
+    ).then(data => res.send(data))
+})
+
+
+
+
+
+
+
 
 
 
